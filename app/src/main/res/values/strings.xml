@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">Chalchitra Sanlap</string>
+    <string name="welcome_to">Welcome To</string>
+    <string name="chalchitra_sanlap">Chalchitra Sanlap</string>
+    <string name="sign_in_to_your_account">Sign in to your account</string>
+    <string name="email">Email</string>
+    <string name="you_email_com">you@email.com</string>
+    <string name="password">Password</string>
+    <string name="password_hint">• • • • • •</string>
+    <string name="sign_in">Sign In</string>
+    <string name="don_t_have_an_account">Don\'t have an account</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="video_meeting_conference_app">Video Meeting | Conference App</string>
+    <string name="first_name">First name</string>
+    <string name="your_first_name">Your first name</string>
+    <string name="last_name">Last name</string>
+    <string name="your_last_name">Your last name</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="already_have_an_account">Already have an account</string>
+    <string name="sign_in">Sign In</string>
 </resources>
