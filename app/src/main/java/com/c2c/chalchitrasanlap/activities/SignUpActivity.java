@@ -1,8 +1,10 @@
-package com.c2c.chalchitrasanlap;
+package com.c2c.chalchitrasanlap.activities;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.c2c.chalchitrasanlap.R;
 
 public class SignUpActivity extends AppCompatActivity {
 

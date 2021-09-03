@@ -1,8 +1,10 @@
-package com.c2c.chalchitrasanlap;
+package com.c2c.chalchitrasanlap.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.c2c.chalchitrasanlap.R;
 
 public class MainActivity extends AppCompatActivity {
 
