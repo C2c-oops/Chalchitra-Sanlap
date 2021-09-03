@@ -17,23 +17,5 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
 
         findViewById(R.id.textSignUp).setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), SignUpActivity.class)));
-
-        //firestore data insert testing code
-        /*FirebaseFirestore db = FirebaseFirestore.getInstance();
-        HashMap<String, Object> user = new HashMap<>();
-        user.put("first_name", "Sahil");
-        user.put("last_name", "Singh");
-        user.put("email", "sahil.singh@email.com");
-        db.collection("users")
-                .add(user)
-                .addOnSuccessListener(documentReference -> {
-                    Toast.makeText(this, "User inserted", Toast.LENGTH_SHORT).show();
-                })
-                .addOnFailureListener(error -> {
-                    Log.e(TAG, "onCreate: " + error);
-                    Toast.makeText(this, "Error adding user: " , Toast.LENGTH_SHORT).show();
-                });*/
-
-
     }
 }
