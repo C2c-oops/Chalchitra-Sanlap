@@ -13,7 +13,8 @@
     <color name="colorAccent">#FF5722</color>
     
     <color name="colorPrimaryText">#212121</color>
-    <color name="colorSecondaryText">#BDBDBD</color>
+    <color name="colorSecondaryText">#757575</color>
+    <color name="colorDivider">#BDBDBD</color>
     <color name="colorTextIcons">#FFFFFF</color>
     <color name="colorBackground">#FAFAFA</color>
     <color name="colorHintText">#BDBDBD</color>

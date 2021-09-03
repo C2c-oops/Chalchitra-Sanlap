@@ -214,7 +214,7 @@
                         android:background="@null"
                         android:fontFamily="@font/ubuntu_regular"
                         android:hint="@string/password_hint"
-                        android:imeOptions="actionNext"
+                        android:imeOptions="actionDone"
                         android:importantForAutofill="no"
                         android:includeFontPadding="false"
                         android:inputType="textPassword"
