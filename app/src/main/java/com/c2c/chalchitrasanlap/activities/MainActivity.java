@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.c2c.chalchitrasanlap.R;
 import com.c2c.chalchitrasanlap.adapters.UsersAdapter;
+import com.c2c.chalchitrasanlap.listener.UsersListeners;
 import com.c2c.chalchitrasanlap.models.User;
 import com.c2c.chalchitrasanlap.utilities.Constants;
 import com.c2c.chalchitrasanlap.utilities.PreferenceManager;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements UsersListeners {
 
     private PreferenceManager preferenceManager;
 
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         userProgressBar = findViewById(R.id.usersProgressBar);
 
         users = new ArrayList<>();
-        usersAdapter = new UsersAdapter(users);
+        usersAdapter = new UsersAdapter(users, this);
         userRecyclerView.setAdapter(usersAdapter);
 
         getUsers();
@@ -137,5 +138,35 @@ public class MainActivity extends AppCompatActivity {
                     finish();
                 })
                 .addOnFailureListener(error -> Toast.makeText(this, "Unable to sign out", Toast.LENGTH_SHORT).show());
+    }
+
+    @Override
+    public void initiateVideoMeeting(User user) {
+        if (user.token == null || user.token.trim().isEmpty()) {
+            Toast.makeText(this,
+                    user.firstName + " " + user.lastName + " is not available for meeting",
+                    Toast.LENGTH_SHORT
+            ).show();
+        } else {
+            Toast.makeText(this,
+                    "Video meeting with " + user.firstName + " " + user.lastName,
+                    Toast.LENGTH_SHORT
+            ).show();
+        }
+    }
+
+    @Override
+    public void initiateAudioMeeting(User user) {
+        if (user.token == null || user.token.trim().isEmpty()) {
+            Toast.makeText(this,
+                    user.firstName + " " + user.lastName + " is not available for meeting",
+                    Toast.LENGTH_SHORT
+            ).show();
+        } else {
+            Toast.makeText(this,
+                    "Audio meeting with " + user.firstName + " " + user.lastName,
+                    Toast.LENGTH_SHORT
+            ).show();
+        }
     }
 }

@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.c2c.chalchitrasanlap.R;
+import com.c2c.chalchitrasanlap.listener.UsersListeners;
 import com.c2c.chalchitrasanlap.models.User;
 
 import java.util.List;
@@ -18,9 +19,11 @@ import java.util.List;
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHolder> {
 
     private List<User> users;
+    private UsersListeners usersListeners;
 
-    public UsersAdapter(List<User> users) {
+    public UsersAdapter(List<User> users, UsersListeners usersListeners) {
         this.users = users;
+        this.usersListeners = usersListeners;
     }
 
     @NonNull
@@ -45,7 +48,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
         return users.size();
     }
 
-    static class UserViewHolder extends RecyclerView.ViewHolder {
+    class UserViewHolder extends RecyclerView.ViewHolder {
 
         TextView txtFirstChar;
         TextView txtUsername;
@@ -68,6 +71,8 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
             txtFirstChar.setText(user.firstName.substring(0, 1));
             txtUsername.setText(String.format("%s %s", user.firstName, user.lastName));
             txtEmail.setText(user.email);
+            imgVoiceCall.setOnClickListener(v -> usersListeners.initiateAudioMeeting(user));
+            imgVideoCall.setOnClickListener(v -> usersListeners.initiateVideoMeeting(user));
         }
     }
 }
