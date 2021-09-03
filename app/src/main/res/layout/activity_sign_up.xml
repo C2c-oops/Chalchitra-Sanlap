@@ -87,7 +87,7 @@
                         android:textSize="@dimen/_11ssp"/>
 
                     <EditText
-                        android:id="@+id/inputFirstName"
+                        android:id="@+id/inputSignUpFirstName"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_30sdp"
                         android:layout_marginStart="@dimen/_8sdp"
@@ -116,7 +116,7 @@
                         android:textSize="@dimen/_11ssp"/>
 
                     <EditText
-                        android:id="@+id/inputLastName"
+                        android:id="@+id/inputSignUpLastName"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_30sdp"
                         android:layout_marginStart="@dimen/_8sdp"
@@ -145,7 +145,7 @@
                         android:textSize="@dimen/_11ssp" />
 
                     <EditText
-                        android:id="@+id/inputEmail"
+                        android:id="@+id/inputSignUpEmail"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_30sdp"
                         android:layout_marginStart="@dimen/_8sdp"
@@ -175,7 +175,7 @@
                         android:textSize="@dimen/_11ssp" />
 
                     <EditText
-                        android:id="@+id/inputPassword"
+                        android:id="@+id/inputSignUpPassword"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_30sdp"
                         android:layout_marginStart="@dimen/_8sdp"
@@ -205,7 +205,7 @@
                         android:textSize="@dimen/_11ssp" />
 
                     <EditText
-                        android:id="@+id/inputConfirmPassword"
+                        android:id="@+id/inputSignUpConfirmPassword"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_30sdp"
                         android:layout_marginStart="@dimen/_8sdp"

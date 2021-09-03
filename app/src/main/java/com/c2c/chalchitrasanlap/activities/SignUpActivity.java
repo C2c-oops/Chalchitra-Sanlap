@@ -45,11 +45,11 @@ public class SignUpActivity extends AppCompatActivity {
         findViewById(R.id.textSignIn).setOnClickListener(v -> onBackPressed());
         findViewById(R.id.textSignIn).setOnClickListener(v -> onBackPressed());
 
-        inputFirstName = findViewById(R.id.inputFirstName);
-        inputLastName = findViewById(R.id.inputLastName);
-        inputEmail = findViewById(R.id.inputEmail);
-        inputPassword = findViewById(R.id.inputPassword);
-        inputConfirmPassword = findViewById(R.id.inputConfirmPassword);
+        inputFirstName = findViewById(R.id.inputSignUpFirstName);
+        inputLastName = findViewById(R.id.inputSignUpLastName);
+        inputEmail = findViewById(R.id.inputSignUpEmail);
+        inputPassword = findViewById(R.id.inputSignUpPassword);
+        inputConfirmPassword = findViewById(R.id.inputSignUpConfirmPassword);
 
         btnSignUp = findViewById(R.id.buttonSignUp);
 
@@ -81,7 +81,8 @@ public class SignUpActivity extends AppCompatActivity {
         signUpProgressBar.setVisibility(View.VISIBLE);
 
         //firestore data insert testing code
-        /*FirebaseFirestore db = FirebaseFirestore.getInstance();
+        /*
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
         HashMap<String, Object> user = new HashMap<>();
         user.put("first_name", "Sahil");
         user.put("last_name", "Singh");
@@ -94,7 +95,8 @@ public class SignUpActivity extends AppCompatActivity {
                 .addOnFailureListener(error -> {
                     Log.e(TAG, "onCreate: " + error);
                     Toast.makeText(this, "Error adding user: " , Toast.LENGTH_SHORT).show();
-                });*/
+                });
+         */
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         HashMap<String, Object> user = new HashMap<>();
