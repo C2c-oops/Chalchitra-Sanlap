@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.c2c.chalchitrasanlap.R;
 import com.c2c.chalchitrasanlap.adapters.UsersAdapter;
@@ -35,7 +36,8 @@ public class MainActivity extends AppCompatActivity implements UsersListeners {
 
     private TextView txtErrorMsg;
 
-    private ProgressBar userProgressBar;
+    //private ProgressBar userProgressBar;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,25 +66,31 @@ public class MainActivity extends AppCompatActivity implements UsersListeners {
         RecyclerView userRecyclerView = findViewById(R.id.usersRecyclerView);
 
         txtErrorMsg = findViewById(R.id.txtErrorMessage);
-        userProgressBar = findViewById(R.id.usersProgressBar);
+        //userProgressBar = findViewById(R.id.usersProgressBar);
 
         users = new ArrayList<>();
         usersAdapter = new UsersAdapter(users, this);
         userRecyclerView.setAdapter(usersAdapter);
+
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(this::getUsers);
 
         getUsers();
 
     }
 
     private void getUsers() {
-        userProgressBar.setVisibility(View.VISIBLE);
+        swipeRefreshLayout.setRefreshing(true);
+        //userProgressBar.setVisibility(View.VISIBLE);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection(Constants.KEY_COLLECTION_USERS)
                 .get()
                 .addOnCompleteListener(task -> {
-                    userProgressBar.setVisibility(View.GONE);
+                    swipeRefreshLayout.setRefreshing(false);
+                    //userProgressBar.setVisibility(View.GONE);
                     String userId = preferenceManager.getString(Constants.KEY_USER_ID);
                     if (task.isSuccessful() && task.getResult() != null) {
+                        users.clear();
                         for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
                             if (userId.equals(documentSnapshot.getId())) {
                                 /**
