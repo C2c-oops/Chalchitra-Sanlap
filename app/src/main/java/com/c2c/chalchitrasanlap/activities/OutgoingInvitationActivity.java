@@ -60,7 +60,11 @@ public class OutgoingInvitationActivity extends AppCompatActivity {
         }
 
         ImageView imgRejectInvitation = findViewById(R.id.imgOutRejectInvitation);
-        imgRejectInvitation.setOnClickListener(v -> onBackPressed());
+        imgRejectInvitation.setOnClickListener(v -> {
+            if(user != null) {
+                cancelInvitation(user.token);
+            }
+        });
 
         if (meetingType != null && user != null) {
             initiateMeeting(meetingType, user.token);
@@ -121,6 +125,9 @@ public class OutgoingInvitationActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     if (type.equals(Constants.REMOTE_MSG_INVITATION)) {
                         Toast.makeText(OutgoingInvitationActivity.this, "Invitation Sent Successfully", Toast.LENGTH_SHORT).show();
+                    } else if (type.equals(Constants.REMOTE_MSG_INVITATION_RESPONSE)) {
+                        Toast.makeText(OutgoingInvitationActivity.this, "Invitation Cancelled", Toast.LENGTH_SHORT).show();
+                        finish();
                     }
                 } else {
                     Toast.makeText(OutgoingInvitationActivity.this, response.message(), Toast.LENGTH_SHORT).show();
@@ -134,5 +141,28 @@ public class OutgoingInvitationActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void cancelInvitation(String receiverToken) {
+        try {
+
+            JSONArray tokens = new JSONArray();
+            tokens.put(receiverToken);
+
+            JSONObject body = new JSONObject();
+            JSONObject data = new JSONObject();
+
+            data.put(Constants.REMOTE_MSG_TYPE, Constants.REMOTE_MSG_INVITATION_RESPONSE);
+            data.put(Constants.REMOTE_MSG_INVITATION_RESPONSE, Constants.REMOTE_MSG_INVITATION_CANCELLED);
+
+            body.put(Constants.REMOTE_MSG_DATA, data);
+            body.put(Constants.REMOTE_MSG_REGISTRATION_IDS, tokens);
+
+            sendRemoteMessage(body.toString(), Constants.REMOTE_MSG_INVITATION_RESPONSE);
+
+        } catch (Exception exception) {
+            Toast.makeText(this, exception.getMessage(), Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 }

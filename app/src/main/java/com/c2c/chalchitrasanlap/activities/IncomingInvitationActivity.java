@@ -53,7 +53,19 @@ public class IncomingInvitationActivity extends AppCompatActivity {
         );
 
         txtEmail.setText(getIntent().getStringExtra(Constants.KEY_EMAIL));
-    }
+
+        ImageView imgAcceptInvitation = findViewById(R.id.imgInAcceptInvitation);
+        imgAcceptInvitation.setOnClickListener(v -> sendInvitationResponse(
+                Constants.REMOTE_MSG_INVITATION_ACCEPTED,
+                getIntent().getStringExtra(Constants.REMOTE_MSG_INVITER_TOKEN)
+        ));
+
+        ImageView imgRejectInvitation = findViewById(R.id.imgInRejectInvitation);
+        imgRejectInvitation.setOnClickListener(v-> sendInvitationResponse(
+                Constants.REMOTE_MSG_INVITATION_REJECTED,
+                getIntent().getStringExtra(Constants.REMOTE_MSG_INVITER_TOKEN)
+        ));
+     }
 
     private void sendInvitationResponse(String type, String receiverToken) {
         try {
@@ -85,11 +97,15 @@ public class IncomingInvitationActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful()) {
-
+                    if (type.equals(Constants.REMOTE_MSG_INVITATION_ACCEPTED)) {
+                        Toast.makeText(IncomingInvitationActivity.this, "Invitation Accepted", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(IncomingInvitationActivity.this, "Invitation Rejected", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     Toast.makeText(IncomingInvitationActivity.this, response.message(), Toast.LENGTH_SHORT).show();
-                    finish();
                 }
+                finish();
             }
 
             @Override
