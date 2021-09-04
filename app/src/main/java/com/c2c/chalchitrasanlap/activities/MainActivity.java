@@ -3,6 +3,7 @@ package com.c2c.chalchitrasanlap.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,12 +41,16 @@ public class MainActivity extends AppCompatActivity implements UsersListeners {
     //private ProgressBar userProgressBar;
     private SwipeRefreshLayout swipeRefreshLayout;
 
+    private ImageView imgConference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         preferenceManager = new PreferenceManager(getApplicationContext());
+
+        imgConference = findViewById(R.id.imgConference);
 
         TextView txtTitle = findViewById(R.id.textTitle);
         txtTitle.setText(
@@ -179,6 +185,22 @@ public class MainActivity extends AppCompatActivity implements UsersListeners {
             intent.putExtra("user", user);
             intent.putExtra("type", "audio");
             startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onMultipleUsersAction(Boolean isMultipleUsersSelected) {
+        if (isMultipleUsersSelected) {
+            imgConference.setVisibility(View.VISIBLE);
+            imgConference.setOnClickListener(v-> {
+                Intent intent = new Intent(getApplicationContext(), OutgoingInvitationActivity.class);
+                intent.putExtra("selectedUser", new Gson().toJson(usersAdapter.getSelectedUser()));
+                intent.putExtra("type", "video");
+                intent.putExtra("isMultiple", true);
+                startActivity(intent);
+            });
+        } else {
+            imgConference.setVisibility(View.GONE);
         }
     }
 }

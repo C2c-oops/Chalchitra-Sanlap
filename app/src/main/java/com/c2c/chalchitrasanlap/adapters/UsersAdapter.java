@@ -8,22 +8,30 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.c2c.chalchitrasanlap.R;
 import com.c2c.chalchitrasanlap.listener.UsersListeners;
 import com.c2c.chalchitrasanlap.models.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHolder> {
 
     private List<User> users;
     private UsersListeners usersListeners;
+    private List<User> selectedUser;
 
     public UsersAdapter(List<User> users, UsersListeners usersListeners) {
         this.users = users;
         this.usersListeners = usersListeners;
+        selectedUser = new ArrayList<>();
+    }
+
+    public List<User> getSelectedUser() {
+        return selectedUser;
     }
 
     @NonNull
@@ -57,6 +65,10 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
         ImageView imgVoiceCall;
         ImageView imgVideoCall;
 
+        ConstraintLayout userContainer;
+        ImageView imgUserSelected;
+
+
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
             txtFirstChar = itemView.findViewById(R.id.txtFirstChar);
@@ -65,6 +77,9 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
 
             imgVoiceCall = itemView.findViewById(R.id.imgVoiceCall);
             imgVideoCall = itemView.findViewById(R.id.imgVideoCall);
+
+            userContainer = itemView.findViewById(R.id.userContainer);
+            imgUserSelected = itemView.findViewById(R.id.imgUserSelected);
         }
 
         void setUserData(User user) {
@@ -73,6 +88,36 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
             txtEmail.setText(user.email);
             imgVoiceCall.setOnClickListener(v -> usersListeners.initiateAudioMeeting(user));
             imgVideoCall.setOnClickListener(v -> usersListeners.initiateVideoMeeting(user));
+
+            userContainer.setOnLongClickListener(v-> {
+                if (imgUserSelected.getVisibility() != View.VISIBLE) {
+                    selectedUser.add(user);
+                    imgUserSelected.setVisibility(View.VISIBLE);
+                    imgVideoCall.setVisibility(View.GONE);
+                    imgVoiceCall.setVisibility(View.GONE);
+                    usersListeners.onMultipleUsersAction(true);
+                }
+                return true;
+            });
+
+            userContainer.setOnClickListener(v-> {
+                if(imgUserSelected.getVisibility() == View.VISIBLE) {
+                    selectedUser.remove(user);
+                    imgUserSelected.setVisibility(View.GONE);
+                    imgVideoCall.setVisibility(View.VISIBLE);
+                    imgVoiceCall.setVisibility(View.VISIBLE);
+                    if (selectedUser.isEmpty()) {
+                        usersListeners.onMultipleUsersAction(false);
+                    }
+                } else {
+                    if (selectedUser.size() > 0) {
+                        selectedUser.add(user);
+                        imgUserSelected.setVisibility(View.VISIBLE);
+                        imgVideoCall.setVisibility(View.GONE);
+                        imgVoiceCall.setVisibility(View.GONE);
+                    }
+                }
+            });
         }
     }
 }
