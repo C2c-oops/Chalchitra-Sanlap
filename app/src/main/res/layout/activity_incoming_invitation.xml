@@ -8,7 +8,7 @@
     tools:context=".activities.IncomingInvitationActivity">
 
     <ImageView
-        android:id="@+id/imgMeetingType"
+        android:id="@+id/imgInMeetingType"
         android:layout_width="@dimen/_30sdp"
         android:layout_height="@dimen/_30sdp"
         android:layout_marginTop="@dimen/_50sdp"
@@ -29,7 +29,7 @@
         android:text="@string/incoming_meeting_invitation"
         android:textColor="@color/colorTextIcons"
         android:textSize="@dimen/_15ssp"
-        app:layout_constraintTop_toBottomOf="@+id/imgMeetingType"/>
+        app:layout_constraintTop_toBottomOf="@+id/imgInMeetingType"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,7 +40,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/txtFirstChar"
+            android:id="@+id/txtInFirstChar"
             android:layout_width="@dimen/_60sdp"
             android:layout_height="@dimen/_60sdp"
             android:background="@drawable/background_meeting_invitation_user_icon"
@@ -52,7 +52,7 @@
             android:textSize="@dimen/_30ssp"/>
 
         <TextView
-            android:id="@+id/txtUsername"
+            android:id="@+id/txtInUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
@@ -63,7 +63,7 @@
             android:textSize="@dimen/_18ssp"/>
 
         <TextView
-            android:id="@+id/txtEmail"
+            android:id="@+id/txtInEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_6sdp"
@@ -76,7 +76,7 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/imgAcceptInvitation"
+        android:id="@+id/imgInAcceptInvitation"
         android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_40sdp"
         android:layout_marginStart="@dimen/_60sdp"
@@ -90,7 +90,7 @@
         app:tint="@color/colorTextIcons" />
 
     <ImageView
-        android:id="@+id/imgRejectInvitation"
+        android:id="@+id/imgInRejectInvitation"
         android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_40sdp"
         android:layout_marginEnd="@dimen/_60sdp"
