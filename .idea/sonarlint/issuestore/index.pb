@@ -18,7 +18,5 @@ w
 Gapp/src/main/java/com/c2c/chalchitrasanlap/listener/UsersListeners.java,6/6/664f6dd4851c728d8a7aff21cef40f108a50dac2
 q
 Aapp/src/main/java/com/c2c/chalchitrasanlap/network/ApiClient.java,c/5/c5796ec1293a539605f2bdebae4e4af25d509276
-w
-Gapp/src/main/java/com/c2c/chalchitrasanlap/activities/MainActivity.java,6/8/68523a728c196b540c94aef7be50b10a6ee07975
 r
 Bapp/src/main/java/com/c2c/chalchitrasanlap/network/ApiService.java,9/1/9147dd6748d794ff161b26c8cbac855b45099630

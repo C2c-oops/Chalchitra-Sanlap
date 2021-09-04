@@ -8,6 +8,7 @@
         <entry key="app/src/main/res/drawable/background_meeting_invitation_user_icon.xml" value="0.24046822742474916" />
         <entry key="app/src/main/res/drawable/background_reject_invitation.xml" value="0.24046822742474916" />
         <entry key="app/src/main/res/drawable/background_user_icon.xml" value="0.24046822742474916" />
+        <entry key="app/src/main/res/drawable/ic_round_call_24.xml" value="0.24046822742474916" />
         <entry key="app/src/main/res/drawable/ic_round_videocam_24.xml" value="0.24046822742474916" />
         <entry key="app/src/main/res/layout/activity_incoming_invitation.xml" value="0.23243243243243245" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.23243243243243245" />

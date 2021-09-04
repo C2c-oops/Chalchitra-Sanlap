@@ -175,10 +175,10 @@ public class MainActivity extends AppCompatActivity implements UsersListeners {
                     Toast.LENGTH_SHORT
             ).show();
         } else {
-            Toast.makeText(this,
-                    "Audio meeting with " + user.firstName + " " + user.lastName,
-                    Toast.LENGTH_SHORT
-            ).show();
+            Intent intent = new Intent(getApplicationContext(), OutgoingInvitationActivity.class);
+            intent.putExtra("user", user);
+            intent.putExtra("type", "audio");
+            startActivity(intent);
         }
     }
 }
