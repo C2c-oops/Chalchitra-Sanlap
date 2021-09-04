@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.c2c.chalchitrasanlap"
-        minSdk 21
+        minSdk 23
         targetSdk 30
         versionCode 1
         versionName "1.0"
@@ -63,4 +63,7 @@ dependencies {
 
     //Swipe Refresh Layout
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+    //Jitsi Meet
+    implementation ('org.jitsi.react:jitsi-meet-sdk:3.8.0') { transitive = true }
 }

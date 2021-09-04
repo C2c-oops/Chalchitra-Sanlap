@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.c2c.chalchitrasanlap.activities.IncomingInvitationActivity;
 import com.c2c.chalchitrasanlap.utilities.Constants;
@@ -53,9 +54,20 @@ public class MessagingService extends FirebaseMessagingService {
                         Constants.REMOTE_MSG_INVITER_TOKEN,
                         remoteMessage.getData().get(Constants.REMOTE_MSG_INVITER_TOKEN)
                 );
+                intent.putExtra(
+                        Constants.REMOTE_MSG_MEETING_ROOM,
+                        remoteMessage.getData().get(Constants.REMOTE_MSG_MEETING_ROOM)
+                );
 
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+            } else if (type.equals(Constants.REMOTE_MSG_INVITATION_RESPONSE)) {
+                Intent intent = new Intent(Constants.REMOTE_MSG_INVITATION_RESPONSE);
+                intent.putExtra(
+                        Constants.REMOTE_MSG_INVITATION_RESPONSE,
+                        remoteMessage.getData().get(Constants.REMOTE_MSG_INVITATION_RESPONSE)
+                );
+                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
             }
         }
     }

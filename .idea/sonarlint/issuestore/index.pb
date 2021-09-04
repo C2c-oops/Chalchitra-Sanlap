@@ -18,12 +18,6 @@ w
 Gapp/src/main/java/com/c2c/chalchitrasanlap/listener/UsersListeners.java,6/6/664f6dd4851c728d8a7aff21cef40f108a50dac2
 q
 Aapp/src/main/java/com/c2c/chalchitrasanlap/network/ApiClient.java,c/5/c5796ec1293a539605f2bdebae4e4af25d509276
-P
- app/src/main/AndroidManifest.xml,8/c/8c55c3ccc257e5907959013f99656e4c8ec3903e
-<
-build.gradle,f/0/f07866736216be0ee2aba49e392191aeae700a35
-@
-app/build.gradle,f/4/f4a01d6a4fcb971362ec00a83903fd3902f52164
 w
 Gapp/src/main/java/com/c2c/chalchitrasanlap/activities/MainActivity.java,6/8/68523a728c196b540c94aef7be50b10a6ee07975
 r

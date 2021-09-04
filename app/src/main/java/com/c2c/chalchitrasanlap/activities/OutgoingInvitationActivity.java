@@ -1,7 +1,12 @@
 package com.c2c.chalchitrasanlap.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,8 +20,13 @@ import com.c2c.chalchitrasanlap.utilities.Constants;
 import com.c2c.chalchitrasanlap.utilities.PreferenceManager;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import org.jitsi.meet.sdk.JitsiMeetActivity;
+import org.jitsi.meet.sdk.JitsiMeetConferenceOptions;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.net.URL;
+import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,17 +37,14 @@ public class OutgoingInvitationActivity extends AppCompatActivity {
     private PreferenceManager preferenceManager;
     private String inviterToken = null;
 
+    String meetingRoom = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_outgoing_invitation);
 
         preferenceManager = new PreferenceManager(getApplicationContext());
-        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
-            if(task.isSuccessful() && task.getResult() != null) {
-                inviterToken = task.getResult();
-            }
-        });
 
         ImageView imgMeetingType = findViewById(R.id.imgOutMeetingType);
         String meetingType = getIntent().getStringExtra("type");
@@ -66,9 +73,14 @@ public class OutgoingInvitationActivity extends AppCompatActivity {
             }
         });
 
-        if (meetingType != null && user != null) {
-            initiateMeeting(meetingType, user.token);
-        }
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
+            if(task.isSuccessful() && task.getResult() != null) {
+                inviterToken = task.getResult();
+                if (meetingType != null && user != null) {
+                    initiateMeeting(meetingType, user.token);
+                }
+            }
+        });
     }
 
     private void initiateMeeting(String meetingType, String receiverToken) {
@@ -97,6 +109,11 @@ public class OutgoingInvitationActivity extends AppCompatActivity {
              * "registration_ids": ["receiver_token"]
              */
             data.put(Constants.REMOTE_MSG_INVITER_TOKEN, inviterToken);
+
+            meetingRoom =
+                    preferenceManager.getString(Constants.KEY_USER_ID) + "_" +
+                            UUID.randomUUID().toString().substring(0, 5);
+            data.put(Constants.REMOTE_MSG_MEETING_ROOM, meetingRoom);
 
             /**
              * Body
@@ -164,5 +181,53 @@ public class OutgoingInvitationActivity extends AppCompatActivity {
             Toast.makeText(this, exception.getMessage(), Toast.LENGTH_SHORT).show();
             finish();
         }
+    }
+
+    private BroadcastReceiver invitationResponseReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String type = intent.getStringExtra(Constants.REMOTE_MSG_INVITATION_RESPONSE);
+            if (type != null) {
+                if (type.equals(Constants.REMOTE_MSG_INVITATION_ACCEPTED)) {
+                    Toast.makeText(context, "Invitation Accepted", Toast.LENGTH_SHORT).show();
+                    try {
+
+                        URL serverURL = new URL("https://meet.jit.si");
+                        JitsiMeetConferenceOptions conferenceOptions =
+                                new JitsiMeetConferenceOptions.Builder()
+                                .setServerURL(serverURL)
+                                .setWelcomePageEnabled(false)
+                                .setRoom(meetingRoom)
+                                .build();
+                        JitsiMeetActivity.launch(OutgoingInvitationActivity.this, conferenceOptions);
+                        finish();
+
+                    } catch (Exception exception) {
+                        Toast.makeText(context, exception.getMessage(), Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                } else if (type.equals(Constants.REMOTE_MSG_INVITATION_REJECTED)) {
+                    Toast.makeText(context, "Invitation Rejected", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+            }
+        }
+    };
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(
+                invitationResponseReceiver,
+                new IntentFilter(Constants.REMOTE_MSG_INVITATION_RESPONSE)
+        );
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(
+                invitationResponseReceiver
+        );
     }
 }
